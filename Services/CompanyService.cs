@@ -2,7 +2,6 @@
 using Exist.Models;
 using Exist.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace Exist.Services
 
         public async Task<Company> AddGroup(int companyId, int groupId)
         {
-            var company =_dbContext.Company.Include(x=>x.Country).Include(x => x.Groups).First(x => x.Id == companyId);
+            var company = _dbContext.Company.Include(x => x.Country).Include(x => x.Groups).First(x => x.Id == companyId);
             var group = _dbContext.Group.First(x => x.Id == groupId);
 
             company.Groups.Add(group);
@@ -33,7 +32,7 @@ namespace Exist.Services
         public async Task<Company> Create(Company company)
         {
             company.Country = _dbContext.Country.First(x => x.Id == company.CountryId);
-            await _dbContext.Company.AddAsync(company);            
+            await _dbContext.Company.AddAsync(company);
             await _dbContext.SaveChangesAsync();
 
             return company;
@@ -62,7 +61,7 @@ namespace Exist.Services
 
         public async Task<List<Company>> GetAll()
         {
-            return _dbContext.Company.Include(x=>x.Country).Include(x => x.Groups).ToList();
+            return _dbContext.Company.Include(x => x.Country).Include(x => x.Groups).ToList();
         }
 
         public async Task<Company> GetById(int id)
@@ -78,7 +77,7 @@ namespace Exist.Services
             {
                 model.Name = company.Name;
             }
-            
+
             if (!string.IsNullOrEmpty(company.Description))
             {
                 model.Description = company.Description;

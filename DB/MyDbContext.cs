@@ -1,11 +1,7 @@
 ﻿using Exist.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Exist.DB
 {
@@ -13,7 +9,7 @@ namespace Exist.DB
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Company> Company { get; set; }

@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Exist.Models;
 using Microsoft.AspNetCore.Authorization;
-using Exist.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace Exist.Controllers
 {
@@ -30,7 +28,7 @@ namespace Exist.Controllers
         public async Task<IActionResult> GetAll()
         {
             try
-            {               
+            {
                 return Ok(await _roleManager.Roles.ToListAsync());
             }
             catch (Exception ex)
@@ -180,7 +178,7 @@ namespace Exist.Controllers
                     return Ok();
                 }
 
-                return BadRequest(res.Errors);                
+                return BadRequest(res.Errors);
             }
             catch (Exception ex)
             {

@@ -35,8 +35,8 @@ namespace Exist.Controllers
         public async Task<IActionResult> Registration(Registration registrator)
         {
             if (ModelState.IsValid)
-            {  
-                User user = new() { UserName = registrator.UserName};
+            {
+                User user = new() { UserName = registrator.UserName };
 
                 if (registrator.Email != null)
                 {
@@ -46,13 +46,13 @@ namespace Exist.Controllers
                 IdentityResult response = await _userManager.CreateAsync(user, registrator.Password);
 
                 if (response.Succeeded)
-                {    
+                {
                     var result = _mapper.Map<User, UserView>(user);
 
                     return Ok(result);
                 }
                 else
-                {                   
+                {
                     return BadRequest(response.Errors.ToList()[0].Code);
                 }
             }
@@ -62,7 +62,7 @@ namespace Exist.Controllers
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginView login)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 var response = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, true, false);
@@ -70,15 +70,15 @@ namespace Exist.Controllers
                 if (response.Succeeded)
                 {
                     var user = _userManager.Users.First(x => x.UserName == login.UserName);
-                    
-                    UserView userview = _mapper.Map<User, UserView>(user);         
+
+                    UserView userview = _mapper.Map<User, UserView>(user);
 
                     var jwt = await _jwtAuthManager.GenerateTokens(user.UserName, DateTime.UtcNow);
 
                     return Ok(new { userview, jwt });
                 }
                 else
-                {                   
+                {
                     throw new Exception("В авторизации отказано");
                 }
             }
@@ -110,7 +110,7 @@ namespace Exist.Controllers
                     return Ok(userView);
                 }
                 else
-                {                    
+                {
                     throw new Exception("Отказ в обновлении ");
                 }
             }

@@ -1,21 +1,21 @@
 using Exist.DB;
+using Exist.Models;
 using Exist.Models.Mapper;
+using Exist.Services;
+using Exist.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using Exist.Services.Interfaces;
-using Exist.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Exist.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
 namespace Exist
 {
@@ -38,7 +38,7 @@ namespace Exist
             services.AddSingleton(jwtConfig);
 
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connection));
-            
+
             services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
 
             services.AddAutoMapper(typeof(MappingEntity));
@@ -67,7 +67,8 @@ namespace Exist
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x => {
+            }).AddJwtBearer(x =>
+            {
                 x.RequireHttpsMetadata = true;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters

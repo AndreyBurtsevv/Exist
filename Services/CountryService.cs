@@ -1,9 +1,8 @@
 ﻿using Exist.DB;
 using Exist.Models;
 using Exist.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,12 +37,12 @@ namespace Exist.Services
 
         public async Task<List<Country>> GetAll()
         {
-            return _dbContext.Country.Include(x=>x.Companys).ToList();
+            return _dbContext.Country.Include(x => x.Companys).ToList();
         }
 
         public async Task<Country> GetById(int id)
         {
-            return _dbContext.Country.Include(x=>x.Companys).First(x=>x.Id==id);
+            return _dbContext.Country.Include(x => x.Companys).First(x => x.Id == id);
         }
 
         public async Task<Country> Update(int id, Country country)

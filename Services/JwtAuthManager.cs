@@ -54,7 +54,7 @@ namespace Exist.Services
 
             var jwtToken = new JwtSecurityToken(
                 expires: now.AddMinutes(_jwtConfig.TokenExp),
-                claims: claims, 
+                claims: claims,
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(_secret), SecurityAlgorithms.HmacSha256Signature));
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
