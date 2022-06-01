@@ -37,7 +37,7 @@ namespace Exist
 
             services.AddSingleton(jwtConfig);
 
-            services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<MyDbContext>(options => options.UseNpgsql(connection));
 
             services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
 
